@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/emilabraham/killionaire",
   "devDependencies": {
+    "bluebird": "^2.9.24",
     "nconf": "^0.7.1"
   },
   "dependencies": {
