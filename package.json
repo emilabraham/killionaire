@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/emilabraham/killionaire/issues"
   },
-  "homepage": "https://github.com/emilabraham/killionaire"
+  "homepage": "https://github.com/emilabraham/killionaire",
+  "devDependencies": {
+    "nconf": "^0.7.1"
+  },
+  "dependencies": {
+    "request": "^2.55.0"
+  }
 }
