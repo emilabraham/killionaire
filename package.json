@@ -1,0 +1,24 @@
+{
+  "name": "killionaire",
+  "version": "1.0.0",
+  "description": "An application that tracks multikills per champion per summoner",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emilabraham/killionaire.git"
+  },
+  "keywords": [
+    "riot",
+    "api",
+    "stats"
+  ],
+  "author": "Emil Abraham",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emilabraham/killionaire/issues"
+  },
+  "homepage": "https://github.com/emilabraham/killionaire"
+}
