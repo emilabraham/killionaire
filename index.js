@@ -9,6 +9,7 @@ function reject (message, error) {
 
 // Get the stats from given summonerId and region
 function getStats (summonerId, region) {
+  var deferred = p.defer();
   function fulfill (response, body) {
     var parsed;
     try {
@@ -17,12 +18,35 @@ function getStats (summonerId, region) {
     catch (error){
       return console.error('Error parsing JSON: ', error);
     }
-    console.log(parsed);
+    deferred.resolve(parsed);
   }
 
   request(options.getStats(summonerId, region))
   .spread(fulfill, reject.bind(null, 'Error retrieving stats'));
+
+  return deferred.promise;
+}
+
+function getChampNames(champId, region) {
+  var deferred = p.defer();
+  function fulfill (response, body) {
+    var parsed;
+    try {
+      parsed = JSON.parse(body);
+    }
+    catch (error) {
+      return console.error('Error parsing JSON: ', error);
+    }
+    deferred.resolve(parsed);
+  }
+
+  request(options.getChampNames(champId, region))
+  .spread(fulfill, reject.bind(null, 'Error retrieving champName'));
+
+  return deferred.promise;
 }
 
 // main
-getStats(25523944, 'na');
+getStats(25523944, 'na')
+.then(console.log);
+//getChampNames(1, 'na');
