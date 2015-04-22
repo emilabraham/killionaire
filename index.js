@@ -27,26 +27,39 @@ function getStats (summonerId, region) {
   return deferred.promise;
 }
 
-function getChampNames(champId, region) {
-  var deferred = p.defer();
+// Print the champName based on champId
+function getChampName(champId, region) {
+  //var deferred = p.defer();
   function fulfill (response, body) {
     var parsed;
     try {
       parsed = JSON.parse(body);
     }
     catch (error) {
-      return console.error('Error parsing JSON: ', error);
+      return console.error('Error here parsing JSON: ', error);
     }
-    deferred.resolve(parsed);
+    var name = parsed.name;
+    console.log(name);
   }
 
   request(options.getChampNames(champId, region))
   .spread(fulfill, reject.bind(null, 'Error retrieving champName'));
+}
 
-  return deferred.promise;
+// Print all of the champ names from given stats
+function printNames (stats) {
+  var champions = stats.champions;
+  //Size decreased by 1 to compensate for id 0 which is the accumulated stats
+  var size = champions.length-1;
+  function fulfill (name) {
+    return name;
+  }
+  for (var i = 0; i < size; i++) {
+    getChampName(champions[i].id, 'na');
+  }
 }
 
 // main
 getStats(25523944, 'na')
-.then(console.log);
+.then(printNames);
 //getChampNames(1, 'na');
