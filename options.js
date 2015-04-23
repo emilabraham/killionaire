@@ -22,7 +22,7 @@ var Options = {
 
   getSummonerId: function getSummonerId (summonerName, region) {
     return {
-      url: 'https://na.api.pvp.net/api/lol/' + region + 'v1.4/summoner/by-name/' + summonerName,
+      url: 'https://na.api.pvp.net/api/lol/' + region + '/v1.4/summoner/by-name/' + summonerName,
       method: 'GET',
       qs: {
         api_key: configs.apikey

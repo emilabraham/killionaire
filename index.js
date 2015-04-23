@@ -8,85 +8,88 @@ function reject (message, error) {
 }
 
 // Get the summonerId from the summonerName
-function getSummonerId (summonerName, region) {
-  var deferred = p.defer();
-  function fulfill (response, body) {
-    var parsed;
-    try{
-      parsed = JSON.parse(body);
+var eatShit = {
+  getSummonerId: function getSummonerId (summonerName, region) {
+    var deferred = p.defer();
+    function fulfill (response, body) {
+      var parsed;
+      try{
+        parsed = JSON.parse(body);
+      }
+      catch (error) {
+        return console.error('Error parsing JSON: ', error);
+      }
+      //Workaround because the JSON property is dynamic based on summoner name
+      for (summoner in parsed) {
+        var details = parsed[summoner];
+        deferred.resolve(details.id);
+      }
     }
-    catch (error) {
-      return console.error('Error parsing JSON: ', error);
+
+    request(options.getSummonerId(summonerName, region))
+    .spread(fulfill, reject.bind(null, 'Error retrieving summonerId'));
+
+    return deferred.promise;
+  },
+
+  // Get the stats as a promise from given summonerId and region
+  getStats: function getStats (region, summonerId) {
+    var deferred = p.defer();
+    function fulfill (response, body) {
+      var parsed;
+      try {
+        parsed = JSON.parse(body);
+      }
+      catch (error){
+        return console.error('Error parsing JSON: ', error);
+      }
+      deferred.resolve(parsed);
     }
-    deferred.resolve(parsed.id);
+
+    request(options.getStats(summonerId, region))
+    .spread(fulfill, reject.bind(null, 'Error retrieving stats'));
+
+    return deferred.promise;
+  },
+
+  // return the champName as a promise based on champId
+  getChampName: function getChampName(region, champId) {
+    var deferred = p.defer();
+    function fulfill (response, body) {
+      var parsed;
+      try {
+        parsed = JSON.parse(body);
+      }
+      catch (error) {
+        return console.error('Error here parsing JSON: ', error);
+      }
+      var name = parsed.name;
+      //console.log(parsed);
+      deferred.resolve(name);
+    }
+
+    request(options.getChampNames(champId, region))
+    .spread(fulfill, reject.bind(null, 'Error retrieving champName'));
+
+    return deferred.promise;
+  },
+
+  // Print all of the champ names and pentakills from given stats
+  printStats: function printStats (stats) {
+    var champions = stats.champions;
+    //Size decreased by 1 to compensate for id 0 which is the accumulated stats
+    var size = champions.length-1;
+
+    //Print out champName and totalPentaKills this season
+    function fulfill (index, name) {
+      console.log(name + ': ' + stats.champions[index].stats.totalPentaKills);
+    }
+
+    for (var i = 0; i < size; i++) {
+      eatShit.getChampName('na', champions[i].id)
+      .then(fulfill.bind(null, i), reject.bind(null, 'Error returning champName'));
+    }
   }
-
-  request(options.getSummonerId(summonerName, region))
-  .spread(fulfill, reject.bind(null, 'Error retrieving summonerId'));
-
-  return deferred.promise;
 }
 
-// Get the stats as a promise from given summonerId and region
-function getStats (summonerId, region) {
-  var deferred = p.defer();
-  function fulfill (response, body) {
-    var parsed;
-    try {
-      parsed = JSON.parse(body);
-    }
-    catch (error){
-      return console.error('Error parsing JSON: ', error);
-    }
-    deferred.resolve(parsed);
-  }
-
-  request(options.getStats(summonerId, region))
-  .spread(fulfill, reject.bind(null, 'Error retrieving stats'));
-
-  return deferred.promise;
-}
-
-// return the champName as a promise based on champId
-function getChampName(champId, region) {
-  var deferred = p.defer();
-  function fulfill (response, body) {
-    var parsed;
-    try {
-      parsed = JSON.parse(body);
-    }
-    catch (error) {
-      return console.error('Error here parsing JSON: ', error);
-    }
-    var name = parsed.name;
-    //console.log(parsed);
-    deferred.resolve(name);
-  }
-
-  request(options.getChampNames(champId, region))
-  .spread(fulfill, reject.bind(null, 'Error retrieving champName'));
-
-  return deferred.promise;
-}
-
-// Print all of the champ names and pentakills from given stats
-function printStats (stats) {
-  var champions = stats.champions;
-  //Size decreased by 1 to compensate for id 0 which is the accumulated stats
-  var size = champions.length-1;
-
-  //Print out champName and totalPentaKills this season
-  function fulfill (index, name) {
-    console.log(stats.summonerId + '/' + name + ': ' + stats.champions[index].stats.totalPentaKills);
-  }
-
-  for (var i = 0; i < size; i++) {
-    getChampName(champions[i].id, 'na')
-    .then(fulfill.bind(null, i), reject.bind(null, 'Error returning champName'));
-  }
-}
-
-// main
-// Print Doublelift's stats
-getStats(20132258, 'na')
-.then(printStats);
+module.exports = eatShit;
