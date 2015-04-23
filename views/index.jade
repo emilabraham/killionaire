@@ -3,3 +3,10 @@ html
     title!= title
 body
   h1!= message
+  div.summonerName
+    form(name="summonerName", method="post")
+      div.input
+        span.label Summoner Name
+        input(type-"text", name="summonerName")
+      div.actions
+        input(type="submit", value"add")
