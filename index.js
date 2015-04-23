@@ -7,7 +7,27 @@ function reject (message, error) {
   return console.error(message, error);
 }
 
-// Get the stats from given summonerId and region
+// Get the summonerId from the summonerName
+function getSummonerId (summonerName, region) {
+  var deferred = p.defer();
+  function fulfill (response, body) {
+    var parsed;
+    try{
+      parsed = JSON.parse(body);
+    }
+    catch (error) {
+      return console.error('Error parsing JSON: ', error);
+    }
+    deferred.resolve(parsed.id);
+  }
+
+  request(options.getSummonerId(summonerName, region))
+  .spread(fulfill, reject.bind(null, 'Error retrieving summonerId'));
+
+  return deferred.promise;
+}
+
+// Get the stats as a promise from given summonerId and region
 function getStats (summonerId, region) {
   var deferred = p.defer();
   function fulfill (response, body) {
@@ -27,9 +47,9 @@ function getStats (summonerId, region) {
   return deferred.promise;
 }
 
-// Print the champName based on champId
+// return the champName as a promise based on champId
 function getChampName(champId, region) {
-  //var deferred = p.defer();
+  var deferred = p.defer();
   function fulfill (response, body) {
     var parsed;
     try {
@@ -39,27 +59,34 @@ function getChampName(champId, region) {
       return console.error('Error here parsing JSON: ', error);
     }
     var name = parsed.name;
-    console.log(name);
+    //console.log(parsed);
+    deferred.resolve(name);
   }
 
   request(options.getChampNames(champId, region))
   .spread(fulfill, reject.bind(null, 'Error retrieving champName'));
+
+  return deferred.promise;
 }
 
-// Print all of the champ names from given stats
-function printNames (stats) {
+// Print all of the champ names and pentakills from given stats
+function printStats (stats) {
   var champions = stats.champions;
   //Size decreased by 1 to compensate for id 0 which is the accumulated stats
   var size = champions.length-1;
-  function fulfill (name) {
-    return name;
+
+  //Print out champName and totalPentaKills this season
+  function fulfill (index, name) {
+    console.log(stats.summonerId + '/' + name + ': ' + stats.champions[index].stats.totalPentaKills);
   }
+
   for (var i = 0; i < size; i++) {
-    getChampName(champions[i].id, 'na');
+    getChampName(champions[i].id, 'na')
+    .then(fulfill.bind(null, i), reject.bind(null, 'Error returning champName'));
   }
 }
 
 // main
-getStats(25523944, 'na')
-.then(printNames);
-//getChampNames(1, 'na');
+// Print Doublelift's stats
+getStats(20132258, 'na')
+.then(printStats);
