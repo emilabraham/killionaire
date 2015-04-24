@@ -1,3 +1,6 @@
 html
-  h1!= summonerName
+  h1!= name
   body
+    ul
+      each name, penta, quadra, triple, double in data
+        li= name

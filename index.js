@@ -8,7 +8,7 @@ function reject (message, error) {
 }
 
 // Get the summonerId from the summonerName
-var eatShit = {
+var apicalls = {
   getSummonerId: function getSummonerId (summonerName, region) {
     var deferred = p.defer();
     function fulfill (response, body) {
@@ -75,21 +75,37 @@ var eatShit = {
   },
 
   // Print all of the champ names and pentakills from given stats
-  printStats: function printStats (stats) {
+  constructJSON: function constructJSON (stats) {
     var champions = stats.champions;
     //Size decreased by 1 to compensate for id 0 which is the accumulated stats
     var size = champions.length-1;
+    var jsonData = [];
+    var deferred = p.defer(); 
 
     //Print out champName and totalPentaKills this season
     function fulfill (index, name) {
       console.log(name + ': ' + stats.champions[index].stats.totalPentaKills);
+      jsonData.push({
+        'name': name,
+        'numPenta' : stats.champions[index].stats.totalPentaKills,
+        'numQuadra': stats.champions[index].stats.totalQuadraKills,
+        'numTriple': stats.champions[index].stats.totalTripleKills,
+        'numDouble': stats.champions[index].stats.totalDoubleKills
+      });
+      if (index === size-1) {
+        var encap = { 'data': jsonData }
+        deferred.resolve(encap);
+        console.log(encap);
+      }
     }
 
     for (var i = 0; i < size; i++) {
-      eatShit.getChampName('na', champions[i].id)
+      apicalls.getChampName('na', champions[i].id)
       .then(fulfill.bind(null, i), reject.bind(null, 'Error returning champName'));
     }
+
+    return deferred.promise;
   }
 }
 
-module.exports = eatShit;
+module.exports = apicalls;
