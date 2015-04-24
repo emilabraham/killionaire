@@ -1,6 +1,17 @@
 html
   h1!= name
   body
-    ul
+    table
+      tr
+        td Champion
+        td Pentakills
+        td Quadrakills
+        td TripleKills
+        td DoubleKills
       for champ in blob
-        li= champ.name
+        tr
+          td= champ.name
+          td= champ.numPenta
+          td= champ.numQuadra
+          td= champ.numTriple
+          td= champ.numDouble

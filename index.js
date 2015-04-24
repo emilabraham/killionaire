@@ -64,7 +64,6 @@ var apicalls = {
         return console.error('Error here parsing JSON: ', error);
       }
       var name = parsed.name;
-      //console.log(parsed);
       deferred.resolve(name);
     }
 
@@ -84,7 +83,6 @@ var apicalls = {
 
     //Print out champName and totalPentaKills this season
     function fulfill (index, name) {
-      console.log(name + ': ' + stats.champions[index].stats.totalPentaKills);
       jsonData.push({
         'name': name,
         'numPenta' : stats.champions[index].stats.totalPentaKills,
@@ -94,7 +92,6 @@ var apicalls = {
       });
       if (index === size-1) {
         deferred.resolve(jsonData);
-        console.log(jsonData);
       }
     }
 
