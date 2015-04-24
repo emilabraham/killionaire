@@ -1,6 +1,6 @@
 //Routes
 var bodyParser = require('body-parser');
-var apicalls = require('../index');
+var apicalls = require('../apicalls');
 
 module.exports = function (app) {
   app.get('/', function(request, response) {
