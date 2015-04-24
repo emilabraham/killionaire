@@ -93,9 +93,8 @@ var apicalls = {
         'numDouble': stats.champions[index].stats.totalDoubleKills
       });
       if (index === size-1) {
-        var encap = { 'data': jsonData }
-        deferred.resolve(encap);
-        console.log(encap);
+        deferred.resolve(jsonData);
+        console.log(jsonData);
       }
     }
 
