@@ -4,7 +4,7 @@ var apicalls = require('../apicalls');
 
 module.exports = function (app) {
   app.get('/', function(request, response) {
-    response.render('index', { title: 'Hey', message: 'Hello there!' });
+    response.render('index');
   });
 
   app.post('/', bodyParser.urlencoded({extended: true}), function(request, response) {

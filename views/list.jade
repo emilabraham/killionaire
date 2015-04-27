@@ -2,16 +2,16 @@ html
   h1!= name
   head
     style
-      link(href='/css/style.css', rel='stylesheet') 
+      link(type='text/css', rel='stylesheet', href='/css/style.css') 
   body
     table
       // Titles
       tr
-        td Champion
-        td Pentakills
-        td Quadrakills
-        td TripleKills
-        td DoubleKills
+        th Champion
+        th Pentakills
+        th Quadrakills
+        th TripleKills
+        th DoubleKills
       for champ in blob
         tr
           td= champ.name

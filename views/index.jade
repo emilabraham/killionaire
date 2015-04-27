@@ -1,14 +1,11 @@
 html
   head
-    title!= title
-    style
-      link(href='/css/style.css', rel='stylesheet') 
+    title Killionaire
+    link(href='/css/style.css', rel='stylesheet') 
 body
-  h1!= message
+  h1 Killionaire
   div.summonerName
     form(name="summonerName", method="post")
-      div.input
-        span.label Summoner Name
-        input(type-"text", name="summonerName")
-      div.actions
+      span.label Enter your Summoner Name:
+        input(type="text", name="summonerName")
         input(type="submit", value"add")
