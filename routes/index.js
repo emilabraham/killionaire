@@ -13,7 +13,7 @@ module.exports = function (app) {
     .then(apicalls.getStats.bind(null, 'na'), console.log)//Returns the stats
     .then(apicalls.constructJSON, console.log)//Returns a JSON blob
     .then(function (json) {
-      response.render('list', { blob: json });
-    }, console.log);//Renders with json blob
+      response.render('list', { blob: json, name: summonerName });//Renders with json blob
+    }, console.log);
   });
 };
