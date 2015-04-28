@@ -2,10 +2,11 @@ html
   head
     title Killionaire
     link(href='/css/style.css', rel='stylesheet') 
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+
 body
   h1 Killionaire
   div.summonerName
     form(name="summonerName", method="post")
-      span.label Enter your Summoner Name:
-        input(type="text", name="summonerName")
-        input(type="submit", value"add")
+      input(type="text", name="summonerName", placeholder="Summoner Name")
+      input(type="submit", value"add")
