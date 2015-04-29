@@ -93,13 +93,16 @@ var apicalls = {
         'numTriple': stats.champions[index].stats.totalTripleKills,
         'numDouble': stats.champions[index].stats.totalDoubleKills
       });
-      if (index === size) {
+      
+      if (index === size-2) {
         deferred.resolve(jsonData);
+        console.log("Index: " + index);
+        console.log(jsonData);
       }
     }
 
     for (var i = 0; i < size; i++) {
-      console.log("Champid: " + champions[i].id + "Index: " + i);
+      //console.log("Champid: " + champions[i].id + "Index: " + i);
       if(champions[i].id !== 0) {//Don't count id 0, which is accumulated stats
         apicalls.getChampName('na', champions[i].id)
         .then(fulfill.bind(null, i), reject.bind(null, 'Error returning champName'));
