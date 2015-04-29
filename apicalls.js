@@ -10,6 +10,7 @@ function reject (message, error) {
 // Get the summonerId from the summonerName
 var apicalls = {
   getSummonerId: function getSummonerId (summonerName, region) {
+    console.log("Fetching Summoner Id...");
     var deferred = p.defer();
     function fulfill (response, body) {
       var parsed;
@@ -34,6 +35,7 @@ var apicalls = {
 
   // Get the stats as a promise from given summonerId and region
   getStats: function getStats (region, summonerId) {
+    console.log("Fetching stats...");
     var deferred = p.defer();
     function fulfill (response, body) {
       var parsed;
@@ -54,6 +56,7 @@ var apicalls = {
 
   // return the champName as a promise based on champId
   getChampName: function getChampName(region, champId) {
+    console.log("Fetching name of Champion...");
     var deferred = p.defer();
     function fulfill (response, body) {
       var parsed;
@@ -75,9 +78,9 @@ var apicalls = {
 
   // Print all of the champ names and pentakills from given stats
   constructJSON: function constructJSON (stats) {
+    console.log("Constructing JSON blob...");
     var champions = stats.champions;
-    //Size decreased by 1 to compensate for id 0 which is the accumulated stats
-    var size = champions.length-1;
+    var size = champions.length;
     var jsonData = [];
     var deferred = p.defer(); 
 
@@ -90,14 +93,17 @@ var apicalls = {
         'numTriple': stats.champions[index].stats.totalTripleKills,
         'numDouble': stats.champions[index].stats.totalDoubleKills
       });
-      if (index === size-1) {
+      if (index === size) {
         deferred.resolve(jsonData);
       }
     }
 
     for (var i = 0; i < size; i++) {
-      apicalls.getChampName('na', champions[i].id)
-      .then(fulfill.bind(null, i), reject.bind(null, 'Error returning champName'));
+      console.log("Champid: " + champions[i].id + "Index: " + i);
+      if(champions[i].id !== 0) {//Don't count id 0, which is accumulated stats
+        apicalls.getChampName('na', champions[i].id)
+        .then(fulfill.bind(null, i), reject.bind(null, 'Error returning champName'));
+      }
     }
 
     return deferred.promise;
