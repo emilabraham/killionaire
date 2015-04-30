@@ -82,11 +82,13 @@ var apicalls = {
     var size = champions.length;
     var jsonData = [];
     for (var i = 0; i < size; i++) {
+      console.log("i outside async: " + i);
       //Need to figure out what this index is doing
       if(champions[i].id !== 0){
         jsonData.push(apicalls.getChampName('na', champions[i].id)
                       .then(function onFulfill (name) {
                         console.log("Fulfilled: " + name);
+                        console.log("i inside async: " + i);
                         var content = {
                           'name': name,
                           'numPenta' : stats.champions[i].stats.totalPentaKills,
@@ -97,7 +99,7 @@ var apicalls = {
 
                         deferred.resolve(content);
                         return deferred.promise();
-                      }.bind(i), function onReject (reason) {
+                      }, function onReject (reason) {
                            console.log("Rejected: " + reason);
                       }));
       }
