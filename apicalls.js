@@ -82,13 +82,9 @@ var apicalls = {
     var jsonData = [];
     var deferred = p.defer();
     champions.forEach(function (champion, index) {
-      console.log("i outside async: " + index);
-      //Need to figure out what this index is doing
       if(champion.id !== 0){
         jsonData.push(apicalls.getChampName('na', champion.id)
                       .then(function onFulfill (name) {
-                        console.log("Fulfilled: " + name);
-                        console.log("i inside async: " + index);
                         var content = {
                           'name': name,
                           'numPenta' : champion.stats.totalPentaKills,
