@@ -82,19 +82,25 @@ var apicalls = {
     var size = champions.length;
     var jsonData = [];
     for (var i = 0; i < size; i++) {
-      jsonData.push(apicalls.getChampName('na', champions[i].id)
-                .then(function onFulfill (name) {
-                  var content = {
-                    'name': name,
-                    'numPenta' : stats.champions[i].stats.totalPentaKills,
-                    'numQuadra': stats.champions[i].stats.totalQuadraKills,
-                    'numTriple': stats.champions[i].stats.totalTripleKills,
-                    'numDouble': stats.champions[i].stats.totalDoubleKills
-                  }
+      //Need to figure out what this index is doing
+      if(champions[i].id !== 0){
+        jsonData.push(apicalls.getChampName('na', champions[i].id)
+                      .then(function onFulfill (name) {
+                        console.log("Fulfilled: " + name);
+                        var content = {
+                          'name': name,
+                          'numPenta' : stats.champions[i].stats.totalPentaKills,
+                          'numQuadra': stats.champions[i].stats.totalQuadraKills,
+                          'numTriple': stats.champions[i].stats.totalTripleKills,
+                          'numDouble': stats.champions[i].stats.totalDoubleKills
+                        };
 
-                  deferred.resolve(content);
-                  return deferred.promise();
-                }, console.log));
+                        deferred.resolve(content);
+                        return deferred.promise();
+                      }.bind(i), function onReject (reason) {
+                           console.log("Rejected: " + reason);
+                      }));
+      }
     }
 
     p.all(jsonData).then(function () {
