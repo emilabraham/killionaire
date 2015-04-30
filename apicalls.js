@@ -79,31 +79,31 @@ var apicalls = {
   // Print all of the champ names and pentakills from given stats
   constructJSON: function constructJSON (stats) {
     var champions = stats.champions;
-    var size = champions.length;
     var jsonData = [];
-    for (var i = 0; i < size; i++) {
-      console.log("i outside async: " + i);
+    var deferred = p.defer();
+    champions.forEach(function (champion, index) {
+      console.log("i outside async: " + index);
       //Need to figure out what this index is doing
-      if(champions[i].id !== 0){
-        jsonData.push(apicalls.getChampName('na', champions[i].id)
+      if(champion.id !== 0){
+        jsonData.push(apicalls.getChampName('na', champion.id)
                       .then(function onFulfill (name) {
                         console.log("Fulfilled: " + name);
-                        console.log("i inside async: " + i);
+                        console.log("i inside async: " + index);
                         var content = {
                           'name': name,
-                          'numPenta' : stats.champions[i].stats.totalPentaKills,
-                          'numQuadra': stats.champions[i].stats.totalQuadraKills,
-                          'numTriple': stats.champions[i].stats.totalTripleKills,
-                          'numDouble': stats.champions[i].stats.totalDoubleKills
+                          'numPenta' : champion.stats.totalPentaKills,
+                          'numQuadra': champion.stats.totalQuadraKills,
+                          'numTriple': champion.stats.totalTripleKills,
+                          'numDouble': champion.stats.totalDoubleKills
                         };
 
                         deferred.resolve(content);
-                        return deferred.promise();
+                        return deferred.promise;
                       }, function onReject (reason) {
                            console.log("Rejected: " + reason);
                       }));
       }
-    }
+    });
 
     p.all(jsonData).then(function () {
       console.log("Here is jsonData: " + jsonData);
