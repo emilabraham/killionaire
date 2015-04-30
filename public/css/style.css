@@ -1,18 +1,18 @@
-table {
+table, #summonerName {
   margin-left: auto;
   margin-right: auto;
 }
 
-h1 {
+h1, body {
   text-align: center;
 }
 
-#summonername {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-#summonerInput {
-  margin-left: auto;
-  margin-right: auto;
+#summonerForm {
+  height: 20px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
