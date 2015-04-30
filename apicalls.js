@@ -78,33 +78,49 @@ var apicalls = {
 
   // Print all of the champ names and pentakills from given stats
   constructJSON: function constructJSON (stats) {
-    var champions = stats.champions;
-    var jsonData = [];
-    var deferred = p.defer();
-    champions.forEach(function (champion, index) {
+    return p.filter(stats.champions, function(champion) {
+      return (champion.id !== 0);
+    }).map(function(champion) {
+      return p.try(function(){
+        return apicalls.getChampName("na", champion.id)
+      }).then(function(name){
+        return {
+          name: name,
+          numPenta: champion.stats.totalPentaKills,
+          numQuadra: champion.stats.totalQuadraKills,
+          numTriple: champion.stats.totalTripleKills,
+          numDouble: champion.stats.totalDoubleKills
+        }
+      });
+    }).then(function(champions){
+      return champions;
+    }).catch(function(err){
+      /* Error handling goes here */
+    })
+    //var deferred = p.defer();
+    /*champions.forEach(function (champion, index) {
       if(champion.id !== 0){
-        jsonData.push(apicalls.getChampName('na', champion.id)
-                      .then(function onFulfill (name) {
-                        var content = {
-                          'name': name,
-                          'numPenta' : champion.stats.totalPentaKills,
-                          'numQuadra': champion.stats.totalQuadraKills,
-                          'numTriple': champion.stats.totalTripleKills,
-                          'numDouble': champion.stats.totalDoubleKills
-                        };
+      jsonData.push(apicalls.getChampName('na', champion.id)
+      .then(function onFulfill (name) {
+      var content = {
+      'name': name,
+      'numPenta' : champion.stats.totalPentaKills,
+      'numQuadra': champion.stats.totalQuadraKills,
+      'numTriple': champion.stats.totalTripleKills,
+      'numDouble': champion.stats.totalDoubleKills
+      };
 
-                        deferred.resolve(content);
-                        return deferred.promise;
-                      }, function onReject (reason) {
-                           console.log("Rejected: " + reason);
-                      }));
+      deferred.resolve(content);
+      return deferred.promise;
+      }, function onReject (reason) {
+      console.log("Rejected: " + reason);
+      }));
       }
-    });
+      });
 
-    p.all(jsonData).then(function () {
-      console.log("Here is jsonData: " + jsonData);
-      return jsonData;
-    }, console.log);
+      return p.all(jsonData).then(function (array) {
+      console.log("Here is jsonData: " + array);
+      }, console.log);*/
   }
 
   /*console.log("Constructing JSON blob...");
