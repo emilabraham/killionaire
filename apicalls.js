@@ -78,39 +78,60 @@ var apicalls = {
 
   // Print all of the champ names and pentakills from given stats
   constructJSON: function constructJSON (stats) {
-    console.log("Constructing JSON blob...");
+    var champions = stats.champions;
+    var size = champions.length;
+    var jsonData = [];
+    for (var i = 0; i < size; i++) {
+      jsonData.push(apicalls.getChampName('na', champions[i].id)
+                .then(function onFulfill (name) {
+                  var content = {
+                    'name': name,
+                    'numPenta' : stats.champions[i].stats.totalPentaKills,
+                    'numQuadra': stats.champions[i].stats.totalQuadraKills,
+                    'numTriple': stats.champions[i].stats.totalTripleKills,
+                    'numDouble': stats.champions[i].stats.totalDoubleKills
+                  }
+
+                  deferred.resolve(content);
+                  return deferred.promise();
+                }, console.log));
+    }
+
+    p.all(jsonData).then(function () {
+      console.log("Here is jsonData: " + jsonData);
+      return jsonData;
+    }, console.log);
+  }
+
+  /*console.log("Constructing JSON blob...");
     var champions = stats.champions;
     var size = champions.length;
     var jsonData = [];
     var deferred = p.defer(); 
 
-    //Print out champName and totalPentaKills this season
-    function fulfill (index, name) {
-      jsonData.push({
-        'name': name,
-        'numPenta' : stats.champions[index].stats.totalPentaKills,
-        'numQuadra': stats.champions[index].stats.totalQuadraKills,
-        'numTriple': stats.champions[index].stats.totalTripleKills,
-        'numDouble': stats.champions[index].stats.totalDoubleKills
-      });
-      
-      if (index === size-2) {
-        deferred.resolve(jsonData);
-        console.log("Index: " + index);
-        console.log(jsonData);
-      }
-    }
+                 //Print out champName and totalPentaKills this season
+                 function fulfill (index, name) {
+                 jsonData.push({
+                 'name': name,
+                 'numPenta' : stats.champions[index].stats.totalPentaKills,
+                 'numQuadra': stats.champions[index].stats.totalQuadraKills,
+                 'numTriple': stats.champions[index].stats.totalTripleKills,
+                 'numDouble': stats.champions[index].stats.totalDoubleKills
+                 });
 
-    for (var i = 0; i < size; i++) {
-      //console.log("Champid: " + champions[i].id + "Index: " + i);
-      if(champions[i].id !== 0) {//Don't count id 0, which is accumulated stats
-        apicalls.getChampName('na', champions[i].id)
-        .then(fulfill.bind(null, i), reject.bind(null, 'Error returning champName'));
-      }
-    }
+                 if (index === size-1) {
+                 deferred.resolve(jsonData);
+                 }
+                 }
 
-    return deferred.promise;
-  }
+                 for (var i = 0; i < size; i++) {
+                 if(champions[i].id !== 0) {//Don't count id 0, which is accumulated stats
+                 apicalls.getChampName('na', champions[i].id)
+                 .then(fulfill.bind(null, i), reject.bind(null, 'Error returning champName'));
+                 }
+                 }
+
+                 return deferred.promise;*/
 }
 
 module.exports = apicalls;
