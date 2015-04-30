@@ -90,7 +90,7 @@ var apicalls = {
     }).then(function(champions){
       return champions;
     }).catch(function(err){
-      /* Error handling goes here */
+      return p.reject(err);
     })
   }
 }
