@@ -17,13 +17,13 @@ var apicalls = {
         parsed = JSON.parse(body);
       }
       catch (error) {
-        return console.error('Error parsing JSON: ', error);
+        return p.reject('Error parsing JSON: ' + error);
       }
       //Workaround because the JSON property is dynamic based on summoner name
       //As in, the summoner name is the key
       for (summoner in parsed) {
         var details = parsed[summoner];
-        return details.id;
+        return p.resolve(details.id);
       }
     }
 
@@ -41,9 +41,9 @@ var apicalls = {
         parsed = JSON.parse(body);
       }
       catch (error){
-        return console.error('Error parsing JSON: ', error);
+        return p.reject('Error parsing JSON: ' + error);
       }
-      return parsed;
+      return p.resolve(parsed);
     }
 
     return request(options.getStats(summonerId, region))
@@ -59,10 +59,10 @@ var apicalls = {
         parsed = JSON.parse(body);
       }
       catch (error) {
-        return console.error('Error here parsing JSON: ', error);
+        return p.reject('Error parsing JSON: ' + error);
       }
       var name = parsed.name;
-      return name;
+      return p.resolve(name);
     }
 
     return request(options.getChampNames(champId, region))
