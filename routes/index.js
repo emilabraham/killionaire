@@ -14,6 +14,9 @@ module.exports = function (app) {
     .then(apicalls.constructJSON, console.log)//Returns a JSON blob
     .then(function (json) {
       response.render('list', { blob: json, name: summonerName });//Renders with json blob
-    }, console.log);
+    }, console.log)
+    .catch(function (err) {
+      response.render('error', { errorMessage: err });
+    });
   });
 };
