@@ -4,7 +4,8 @@ var request = p.promisify(require('request'));
 
 // Generic function that returns an error when a promise is rejected
 function reject (message, error) {
-  return console.error(message, error);
+  console.error(message, error);
+  return message;
 }
 
 var apicalls = {
@@ -28,7 +29,7 @@ var apicalls = {
     }
 
     return request(options.getSummonerId(summonerName, region))
-    .spread(fulfill, reject.bind(null, 'Error retrieving summonerId'));
+    .spread(fulfill, reject.bind(null, 'Could not find ranked games for the given summoner name'));
 
   },
 
@@ -47,7 +48,7 @@ var apicalls = {
     }
 
     return request(options.getStats(summonerId, region))
-    .spread(fulfill, reject.bind(null, 'Error retrieving stats'));
+    .spread(fulfill, reject.bind(null, 'Could not find ranked games for the given summoner name'));
   },
 
   // return the champName as a promise based on champId
@@ -66,8 +67,7 @@ var apicalls = {
     }
 
     return request(options.getChampNames(champId, region))
-    .spread(fulfill, reject.bind(null, 'Error retrieving champName'));
-
+    .spread(fulfill, reject.bind(null, 'Uh oh. Got an error retrieving your stats'));
   },
 
   // Print all of the champ names and pentakills from given stats
