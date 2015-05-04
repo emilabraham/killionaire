@@ -37,14 +37,19 @@ var apicalls = {
   getStats: function getStats (region, summonerId) {
     console.log("Fetching stats...");
     function fulfill (response, body) {
-      var parsed;
-      try {
-        parsed = JSON.parse(body);
+      if (response.statusCode === 404) {
+        return p.reject('Could not find ranked stats for the given summoner name');
       }
-      catch (error){
-        return p.reject('Error parsing JSON: ' + error);
+      else {
+        var parsed;
+        try {
+          parsed = JSON.parse(body);
+        }
+        catch (error){
+          return p.reject('Error parsing JSON: ' + error);
+        }
+        return p.resolve(parsed);
       }
-      return p.resolve(parsed);
     }
 
     return request(options.getStats(summonerId, region))
