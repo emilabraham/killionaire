@@ -1,22 +1,30 @@
 //Routes
 var bodyParser = require('body-parser');
 var apicalls = require('../apicalls');
+var router = require('express-promise-router')(); //Creates new instance of router
+var p = require('bluebird');
 
-module.exports = function (app) {
-  app.get('/', function(request, response) {
+
+router.get('/', function(request, response) {
+  return p.try(function() {
     response.render('index');
   });
+});
 
-  app.post('/', bodyParser.urlencoded({extended: true}), function(request, response) {
-    var summonerName = request.body.summonerName;
-    apicalls.getSummonerId(summonerName, 'na')//Returns the summonerId
-    .then(apicalls.getStats.bind(null, 'na'), console.log)//Returns the stats
-    .then(apicalls.constructJSON, console.log)//Returns a JSON blob
-    .then(function (json) {
-      response.render('list', { blob: json, name: summonerName });//Renders with json blob
-    }, console.log)
-    .catch(function (err) {
-      response.render('error', { errorMessage: err });
-    });
+router.post('/', bodyParser.urlencoded({extended: true}), function(request, response) {
+  var summonerName = request.body.summonerName;
+  return p.try(function() {
+    return apicalls.getSummonerId(summonerName, 'na');//Returns the summonerId
+  }).then(function (summonerId) {
+    return apicalls.getStats('na', summonerId);//Returns the stats
+  }).then(function (stats) {
+    return apicalls.constructJSON(stats);//Returns a JSON blob
+  }).then(function (json) {
+    response.render('list', { blob: json, name: summonerName });//Renders with json blob
   });
-};
+  .catch(function (err) {
+    response.render('error', { errorMessage: err });
+  });
+});
+
+module.exports = router;
