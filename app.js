@@ -6,6 +6,11 @@ app.set('views', './views');
 app.set('view engine', 'jade');
 app.use(express.static('public'));
 
+//Routes
+app.use('/', require('./routes/index'));
+
+app.set('view options', { pretty: true });
+app.locals.pretty = true;
 app.use('/', require('./routes/index'));
 
 //General error handling middleware

@@ -1,21 +1,23 @@
+doctype html
 html
-  h1 Killionaire
-  h2= name
   head
-    link(rel='stylesheet', href='/css/style.css') 
+    link(href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet')
+    link(rel='stylesheet', href='css/style.css')
   body
-    table
-      // Titles
-      tr
-        th Champion
-        th Pentakills
-        th Quadrakills
-        th TripleKills
-        th DoubleKills
-      for champ in blob
+    div(id='wrapper')
+      h1= name
+      table
+        // Titles
         tr
-          td= champ.name
-          td= champ.numPenta
-          td= champ.numQuadra
-          td= champ.numTriple
-          td= champ.numDouble
+          th Champion
+          th PentaKills
+          th QuadraKills
+          th TripleKills
+          th DoubleKills
+        for champ in blob
+          tr
+            td= champ.name
+            td= champ.numPenta
+            td= champ.numQuadra
+            td= champ.numTriple
+            td= champ.numDouble
