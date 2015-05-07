@@ -7,7 +7,7 @@ module.exports = function (app) {
     response.render('index');
   });
 
-  app.post('/', bodyParser.urlencoded({extended: true}), function(request, response) {
+  app.post('/search', bodyParser.urlencoded({extended: true}), function(request, response) {
     var summonerName = request.body.summonerName;
     apicalls.getSummonerId(summonerName, 'na')//Returns the summonerId
     .then(apicalls.getStats.bind(null, 'na'), console.log)//Returns the stats
