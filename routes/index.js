@@ -22,9 +22,6 @@ router.post('/', bodyParser.urlencoded({extended: true}), function(request, resp
   }).then(function (json) {
     response.render('list', { blob: json, name: summonerName });//Renders with json blob
   });
-  .catch(function (err) {
-    response.render('error', { errorMessage: err });
-  });
 });
 
 module.exports = router;
