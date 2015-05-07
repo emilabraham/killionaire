@@ -18,7 +18,7 @@ var apicalls = {
         parsed = JSON.parse(body);
       }
       catch (error) {
-        return p.reject('Error parsing JSON: ' + error);
+        return p.reject('Error parsing JSON when getting Summoner id: ' + error);
       }
       //Workaround because the JSON property is dynamic based on summoner name
       //As in, the summoner name is the key
@@ -46,7 +46,7 @@ var apicalls = {
           parsed = JSON.parse(body);
         }
         catch (error){
-          return p.reject('Error parsing JSON: ' + error);
+          return p.reject('Error parsing JSON when getting stats: ' + error);
         }
         return p.resolve(parsed);
       }

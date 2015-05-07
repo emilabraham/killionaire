@@ -5,6 +5,11 @@ table, #summonerName {
 
 h1, body {
   text-align: center;
+  background-color: #3399FF;
+}
+
+h1 {
+  color: white;
 }
 
 #summonerForm {
