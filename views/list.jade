@@ -4,19 +4,20 @@ html
     link(href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet')
     link(rel='stylesheet', href='css/style.css')
   body
-    h1= name
-    table
-      // Titles
-      tr
-        th Champion
-        th Pentakills
-        th Quadrakills
-        th TripleKills
-        th DoubleKills
-      for champ in blob
+    div(id='wrapper')
+      h1= name
+      table
+        // Titles
         tr
-          td= champ.name
-          td= champ.numPenta
-          td= champ.numQuadra
-          td= champ.numTriple
-          td= champ.numDouble
+          th Champion
+          th Pentakills
+          th Quadrakills
+          th TripleKills
+          th DoubleKills
+        for champ in blob
+          tr
+            td= champ.name
+            td= champ.numPenta
+            td= champ.numQuadra
+            td= champ.numTriple
+            td= champ.numDouble
