@@ -9,9 +9,11 @@ html
 
   body
     div(id="wrapper")
-      h1 Killionaire
+      h1(id="logo") Killionaire
       form(id="summonerForm", name="summonerName", method="post")
-        input(type="text", name="summonerName", placeholder="Enter your summoner name")
-        input(type="submit", value="Search")
+        fieldset
+          legend Reveal your multikills
+          input(type="text", name="summonerName", placeholder="Enter your summoner name")
+          input(type="submit", value="Search")
       div(id="result")
     script(type='text/javascript', src='js/main.js')

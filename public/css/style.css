@@ -13,23 +13,103 @@ body {
 #wrapper {
   margin: 0 auto;
   min-width: 250px;
-  max-width: 450px;
+  max-width: 650px;
 }
 
-h1 {
-  margin-bottom: 2em;
+#logo {
+  color: #384;
+  font-family: 'Helvetica';
+  font-weight: bold;
+  font-size: 8em;
+  text-shadow: 0 1px 0 #257535, 0 2px 0 #257, 0 3px 0 #162, 0 4px 0 #051, 0 5px 0 #051, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+  margin-bottom: 0.5em;
 }
 
-input {
-  padding: 0.5em;
-  border-radius: 5px;
+fieldset {
+  border: 0;
+  margin-bottom: 1em;
+}
+
+fieldset legend {
+  margin-bottom: 0.5em;
+}
+
+fieldset input {
   border: none;
+  height: 3em;
+  margin-right: -4px;
+  box-sizing: border-box;
 }
 
-input:focus {
-  box-shadow: 0px 0px 2px 0 #123456 inset;
+fieldset input[type="submit"] {
+  background-color: #384;
+  color: #eee;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 3px 0px 2px 0px #222;
+  width: 100px;
+}
+
+fieldset input[type="submit"]:active {
+  box-shadow: none;
+}
+
+fieldset input[type="text"]:focus {
+  box-shadow: 0px 0px 2px 0 #384 inset;
+}
+
+fieldset input[type="text"] {
+  padding-left: 1em;
+  color: #384;
+  padding-right: 46px;
+  width: 550px;
+  box-shadow: 0px 0px 5px #333333;
+}
+
+table {
+  width: 100%;
 }
 
 td, th {
   padding: 0.2em;
+  text-align: left;
+}
+
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+.header {
+  display: inline-block;
+  border-bottom: 1px dotted #384;
+  width: 95%;
+}
+
+ul, li {
+  list-style-type: none;
+}
+
+#summoner {
+  background-color: #fff;
+  color: #222;
+  margin-bottom: 1em;
+  box-shadow: 0px 0px 5px #333333;
+}
+
+#summoner h1 {
+  color: rgb(245, 245, 245);
+  font-size: 50px;
+  background-color: #384;
+  text-shadow: rgb(245, 245, 245) 0px 0px 8px;
+  text-align: center;
+  padding: 0.4em;
+}
+
+#summary {
+  padding: 2em;
+}
+
+#summary h2 {
+  border-bottom: 1px solid #384;
+  margin-bottom: 0.5em;
+  color: #444;
 }

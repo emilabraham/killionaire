@@ -93,6 +93,20 @@ var apicalls = {
         }
       });
     }).then(function(champions){
+      var totals = {
+        name: 'totals',
+        numPenta: 0,
+        numQuadra: 0,
+        numTriple: 0,
+        numDouble: 0
+      };
+      for (champion in champions) {
+        totals.numPenta = totals.numPenta + champions[champion].numPenta || 0;
+        totals.numQuadra = totals.numQuadra + champions[champion].numQuadra || 0;
+        totals.numTriple = totals.numTriple + champions[champion].numTriple || 0;
+        totals.numDouble = totals.numDouble + champions[champion].numDouble || 0;
+      }
+      champions.totals = totals;
       return champions;
     }).catch(function(err){
       return p.reject(err);
