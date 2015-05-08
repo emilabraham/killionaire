@@ -1,4 +1,7 @@
 var configs = require('./utils/config-utils');
+
+//Options for the requests
+
 var Options = {
   getStats: function getStats (summonerId, region) {
     return {
