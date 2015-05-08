@@ -14,7 +14,7 @@ $(document).ready(function() {
     .done(function(data) {
       $('#result').html(data).fadeIn(400);
     }).fail(function(xhr, status, error) {
-      $('#result').html(xhr.responseText);
+      $('#result').html(xhr.responseText).show();
     }).always(function() {
       $input.css('background-image', '');
     });
