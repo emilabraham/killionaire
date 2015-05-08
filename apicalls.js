@@ -34,7 +34,7 @@ var apicalls = {
   },
 
   // Get the stats as a promise from given summonerId and region
-  getStats: function getStats (region, summonerId) {
+  getStats: function getStats (summonerId, region) {
     console.log("Fetching stats...");
     function fulfill (response, body) {
       if (response.statusCode === 404) {
@@ -57,7 +57,7 @@ var apicalls = {
   },
 
   // return the champName as a promise based on champId
-  getChampName: function getChampName(region, champId) {
+  getChampName: function getChampName(champId, region) {
     console.log("Fetching name of Champion...");
     function fulfill (response, body) {
       var parsed;
@@ -76,13 +76,13 @@ var apicalls = {
   },
 
   // Print all of the champ names and pentakills from given stats
-  constructJSON: function constructJSON (stats) {
+  constructJSON: function constructJSON (stats, region) {
     console.log("Constructing JSON...");
     return p.filter(stats.champions, function(champion) {
       return (champion.id !== 0);
     }).map(function(champion) {
       return p.try(function(){
-        return apicalls.getChampName("na", champion.id)
+        return apicalls.getChampName(champion.id, region)
       }).then(function(name){
         return {
           name: name,
