@@ -5,7 +5,7 @@ $(document).ready(function() {
     var $input = $('input[name="summonerName"]');
     var spincss = {
       'background-image': 'url(img/spinner.gif)',
-      'background-position': '260px center',
+      'background-position': '97% center',
       'background-repeat': 'no-repeat'
     }
     $input.css(spincss);
