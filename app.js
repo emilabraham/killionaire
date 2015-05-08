@@ -11,7 +11,7 @@ app.use('/', require('./routes/index'));
 
 app.set('view options', { pretty: true });
 app.locals.pretty = true;
-app.use('/', require('./routes/index'));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 
 //General error handling middleware
 app.use(function (error, request, response, next) {

@@ -4,11 +4,14 @@ html
     title Killionaire
     link(href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet')
     link(href='css/style.css', rel='stylesheet')
+    script(type='text/javascript', src='jquery/jquery.min.js')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
-body
-  div(id="wrapper")
-    h1 Killionaire
-    form(id="summonerForm", name="summonerName", method="post")
-      input(type="text", name="summonerName", placeholder="Enter your Summoner Name")
-      input(type="submit", value"Search")
+  body
+    div(id="wrapper")
+      h1 Killionaire
+      form(id="summonerForm", name="summonerName", method="post")
+        input(type="text", name="summonerName", placeholder="Enter your summoner name")
+        input(type="submit", value="Search")
+      div(id="result")
+    script(type='text/javascript', src='js/main.js')

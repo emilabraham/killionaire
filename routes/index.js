@@ -11,7 +11,7 @@ router.get('/', function(request, response) {
   });
 });
 
-router.post('/', bodyParser.urlencoded({extended: true}), function(request, response) {
+router.post('/search', bodyParser.urlencoded({extended: true}), function(request, response) {
   var summonerName = request.body.summonerName;
   return p.try(function() {
     return apicalls.getSummonerId(summonerName, 'na');//Returns the summonerId
