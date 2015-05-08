@@ -101,10 +101,10 @@ var apicalls = {
         numDouble: 0
       };
       for (champion in champions) {
-        totals.numPenta = totals.numPenta + champions[champion].numPenta;
-        totals.numQuadra = totals.numQuadra + champions[champion].numQuadra;
-        totals.numTriple = totals.numTriple + champions[champion].numTriple;
-        totals.numDouble = totals.numDouble + champions[champion].numDouble;
+        totals.numPenta = totals.numPenta + champions[champion].numPenta || 0;
+        totals.numQuadra = totals.numQuadra + champions[champion].numQuadra || 0;
+        totals.numTriple = totals.numTriple + champions[champion].numTriple || 0;
+        totals.numDouble = totals.numDouble + champions[champion].numDouble || 0;
       }
       champions.totals = totals;
       return champions;
