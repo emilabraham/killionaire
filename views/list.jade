@@ -1,4 +1,25 @@
-h1= name
+div(id='summoner')
+  h1= name
+  div(id='summary')
+    h2 Totals
+    ul
+      li
+        span(class='header')
+          | Pentas
+        = blob.totals.numPenta
+      li
+        span(class='header')
+          | Quadras
+        = blob.totals.numQuadra
+      li
+        span(class='header')
+          | Triples
+        = blob.totals.numTriple
+      li
+        span(class='header')
+          | Doubles
+        = blob.totals.numDouble
+
 table
   // Titles
   tr
