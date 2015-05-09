@@ -12,7 +12,14 @@ $(document).ready(function() {
     var summoner = $input.val();
     $.post('search', $(this).serialize())
     .done(function(data) {
-      $('#result').html(data).fadeIn(400);
+      $('#result').html(data);
+      $('#summoner').hide();
+      $('#result table').hide();
+      $('#result').show(0, function() {
+        $('#summoner').fadeIn(400, function() {
+          $('#result table').fadeIn(400);
+        });
+      });
     }).fail(function(xhr, status, error) {
       $('#result').html(xhr.responseText).show();
     }).always(function() {
