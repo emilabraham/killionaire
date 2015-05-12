@@ -15,7 +15,7 @@ var Options = {
 
   getChampNames: function getChampNames (champId, region) {
     return {
-      url: 'https://' + region + '.api.pvp.net/api/lol/static-data/' + region + '/v1.2/champion/' + champId,
+      url: 'https://global.api.pvp.net/api/lol/static-data/' + region + '/v1.2/champion/' + champId,
       method: 'GET',
       qs: {
         api_key: configs.apikey
