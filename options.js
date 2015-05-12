@@ -31,6 +31,16 @@ var Options = {
         api_key: configs.apikey
       }
     }
+  },
+
+  getDragonVersion: function getDragonVersion (region) {
+    return {
+      url: 'https://global.api.pvp.net/api/lol/static-data/' + region + '/v1.2/realm/',
+      method: 'GET',
+      qs: {
+        api_key: configs.apikey
+      }
+    }
   }
 }
 

@@ -75,6 +75,25 @@ var apicalls = {
     .spread(fulfill, reject.bind(null, 'Uh oh. Got an error retrieving your stats'));
   },
 
+  // return ddragon version
+  getDragonVersion: function getDragonVersion (region) {
+    console.log("Getting DDragon version...");
+    function fulfill (response, body) {
+      var parsed;
+      try {
+        parsed = JSON.parse(body);
+      }
+      catch (error) {
+        return p.reject('Error parsing JSON: ' + error);
+      }
+      var version = parsed.v;
+      return p.resolve(version);
+    }
+
+    return request(options.getDragonVersion(region))
+    .spread(fulfill, reject.bind(null, 'Got an error getting the DDragon version'));
+  },
+
   // Print all of the champ names and pentakills from given stats
   constructJSON: function constructJSON (stats, region) {
     console.log("Constructing JSON...");
