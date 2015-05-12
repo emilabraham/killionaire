@@ -151,6 +151,16 @@ ul, li {
   padding: 0.4em;
 }
 
+#summoner a {
+  float: right;
+  color: #00b;
+  padding: 5px;
+}
+
+#summoner a:visited {
+  color: #00b;
+}
+
 #summary {
   padding: 2em;
 }
