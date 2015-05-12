@@ -46,7 +46,7 @@ fieldset input[type="submit"] {
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
-  box-shadow: 3px 0px 2px 0px #222;
+  box-shadow: 0px 0px 2px 0px #222;
   width: 100px;
 }
 
@@ -62,8 +62,55 @@ fieldset input[type="text"] {
   padding-left: 1em;
   color: #384;
   padding-right: 46px;
-  width: 550px;
+  width: 450px;
   box-shadow: 0px 0px 5px #333333;
+}
+
+fieldset #region, fieldset .option {
+  background-color: #384;
+  border: 0;
+}
+
+fieldset #region {
+  display: inline-block;
+  padding-top: 10px;
+  height: 40px;
+  box-shadow: 0px 0px 5px #333333;
+  width: 95px;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative;
+  top: 1px;
+  cursor: default;
+}
+
+fieldset #options {
+  display: none;
+  float: left;
+  margin-left: 400px;
+  max-width: 260px;
+  background-color: #384;
+  margin-top: -45px;
+  z-index: 10;
+  position: relative;
+  box-shadow: 0px 0px 5px #333333;
+  cursor: default;
+}
+
+fieldset .option {
+  width: 80px;
+  height: 36px;
+  padding-top: 18px;
+  text-align: center;
+  border: 0;
+  float: left;
+  position: relative;
+  cursor: default;
+}
+
+fieldset .option:hover {
+  background-color: #eee;
+  color: #584;
 }
 
 table {
