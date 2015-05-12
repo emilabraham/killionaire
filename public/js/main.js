@@ -21,7 +21,7 @@ $(document).ready(function() {
     $('#result').fadeOut(400);
     var summoner = $('input[name="summonerName"]').val();
     var region = $('#region').text().toLowerCase();
-    getData(region, summoner);
+    location.hash = region + ':' + summoner;
   });
 
   function hashSearch() {
