@@ -13,12 +13,13 @@ router.get('/', function(request, response) {
 
 router.post('/search', bodyParser.urlencoded({extended: true}), function(request, response) {
   var summonerName = request.body.summonerName;
+  var region = request.body.region;
   return p.try(function() {
-    return apicalls.getSummonerId(summonerName, 'na');//Returns the summonerId
+    return apicalls.getSummonerId(summonerName, region);//Returns the summonerId
   }).then(function (summonerId) {
-    return apicalls.getStats('na', summonerId);//Returns the stats
+    return apicalls.getStats(summonerId, region);//Returns the stats
   }).then(function (stats) {
-    return apicalls.constructJSON(stats);//Returns a JSON blob
+    return apicalls.constructJSON(stats, region);//Returns a JSON blob
   }).then(function (json) {
     response.render('list', { blob: json, name: summonerName });//Renders with json blob
   });
