@@ -1,4 +1,11 @@
 $(document).ready(function() {
+  $('#region').on('click', function(e) {
+    $('#options').toggle();
+  });
+  $('.option').on('click', function() {
+    $('#region').text($(this).text());
+    $('#options').hide();
+  });
   $('#summonerForm').on('submit', function(e) {
     e.preventDefault();
     $('#result').fadeOut(400);
@@ -10,7 +17,8 @@ $(document).ready(function() {
     }
     $input.css(spincss);
     var summoner = $input.val();
-    $.post('search', $(this).serialize())
+    var post = $(this).serialize() + '&region=' + $('#region').text().toLowerCase();
+    $.post('search', post)
     .done(function(data) {
       $('#result').html(data);
       $('#summoner').hide();
