@@ -14,6 +14,11 @@ html
         fieldset
           legend Reveal your multikills
           input(type="text", name="summonerName", placeholder="Enter your summoner name")
+          div(id="region") NA
+          div(id="options")
+            div(data-value="na", class="option") NA
+            div(data-value="euw", class="option") EUW
+            div(data-value="eune", class="option") EUNE
           input(type="submit", value="Search")
       div(id="result")
     script(type='text/javascript', src='js/main.js')
