@@ -94,6 +94,25 @@ var apicalls = {
     .spread(fulfill, reject.bind(null, 'Got an error getting the DDragon version'));
   },
 
+  // return the name of the champ image
+  getImageName: function getImageName (champId, region) {
+    console.log("Getting the champion image name...");
+    function fulfill (response, body) {
+      var parsed;
+      try {
+        parsed = JSON.parse(body);
+      }
+      catch (error) {
+        return p.reject('Error parsing JSON: ' + error);
+      }
+      var image = parsed.image.full;
+      return p.resolve(image);
+    }
+
+    return request(options.getImageName(champId, region))
+    .spread(fulfill, reject.bind(null, 'Got an error getting the image name'));
+  },
+
   // Print all of the champ names and pentakills from given stats
   constructJSON: function constructJSON (stats, region) {
     console.log("Constructing JSON...");

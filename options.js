@@ -41,6 +41,17 @@ var Options = {
         api_key: configs.apikey
       }
     }
+  },
+
+  getImageName: function getImageName (champId, region) {
+    return {
+      url: 'https://global.api.pvp.net/api/lol/static-data/' + region + '/v1.2/champion/' + champId,
+      method: 'GET',
+      qs: {
+        api_key: configs.apikey,
+        champData: 'image'
+      }
+    }
   }
 }
 
