@@ -30,7 +30,9 @@ table
     th DoubleKills
   for champ in blob
     tr
-      td= champ.name
+      td 
+        img(src=champ.object.url)
+        =champ.object.name
       td= champ.numPenta
       td= champ.numQuadra
       td= champ.numTriple

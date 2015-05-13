@@ -58,7 +58,6 @@ var apicalls = {
 
   // return the champName as a promise based on champId
   getChampName: function getChampName(champId, region) {
-    console.log("Fetching name of Champion...");
     function fulfill (response, body) {
       var parsed;
       try {
@@ -77,7 +76,6 @@ var apicalls = {
 
   // return ddragon version
   getDragonVersion: function getDragonVersion (region) {
-    console.log("Getting DDragon version...");
     function fulfill (response, body) {
       var parsed;
       try {
@@ -96,7 +94,6 @@ var apicalls = {
 
   // return the name of the champ image
   getImageName: function getImageName (champId, region) {
-    console.log("Getting the champion image name...");
     function fulfill (response, body) {
       var parsed;
       try {
@@ -116,20 +113,31 @@ var apicalls = {
   // Print all of the champ names and pentakills from given stats
   constructJSON: function constructJSON (stats, region) {
     console.log("Constructing JSON...");
+
+    function buildURL(name, version, image) {
+      console.log('Building champion object...');
+      object = {
+        name: name,
+        url: 'http://ddragon.leagueoflegends.com/cdn/' + version + '/img/champion/' + image
+      }
+      return p.resolve(object);
+    }
     return p.filter(stats.champions, function(champion) {
       return (champion.id !== 0);
     }).map(function(champion) {
-      return p.try(function(){
-        return apicalls.getChampName(champion.id, region)
-      }).then(function(name){
-        return {
-          name: name,
-          numPenta: champion.stats.totalPentaKills,
-          numQuadra: champion.stats.totalQuadraKills,
-          numTriple: champion.stats.totalTripleKills,
-          numDouble: champion.stats.totalDoubleKills
-        }
-      });
+      return p.join(apicalls.getChampName(champion.id, region),
+                    apicalls.getDragonVersion(region),
+                    apicalls.getImageName(champion.id, region),
+                    buildURL
+                   ).then(function(object){
+                     return {
+                       object: object,
+                       numPenta: champion.stats.totalPentaKills,
+                       numQuadra: champion.stats.totalQuadraKills,
+                       numTriple: champion.stats.totalTripleKills,
+                       numDouble: champion.stats.totalDoubleKills
+                     }
+                   });
     }).then(function(champions){
       var totals = {
         name: 'totals',
