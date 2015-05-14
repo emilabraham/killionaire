@@ -125,7 +125,7 @@ td, th {
 :focus {outline:none;}
 ::-moz-focus-inner {border:0;}
 
-.header {
+.headerSum {
   display: inline-block;
   border-bottom: 1px dotted #384;
   width: 95%;
@@ -169,4 +169,9 @@ ul, li {
   border-bottom: 1px solid #384;
   margin-bottom: 0.5em;
   color: #444;
+}
+
+img {
+  width: 50px;
+  height: auto;
 }
