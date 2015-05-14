@@ -12,6 +12,7 @@ app.use('/', require('./routes/index'));
 app.set('view options', { pretty: true });
 app.locals.pretty = true;
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use('/tablesorter', express.static(__dirname + '/node_modules/tablesorter/dist/js'));
 
 //General error handling middleware
 app.use(function (error, request, response, next) {
