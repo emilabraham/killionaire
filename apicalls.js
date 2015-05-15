@@ -82,7 +82,7 @@ var apicalls = {
         parsed = JSON.parse(body);
       }
       catch (error) {
-        return p.reject('Error parsing JSON: ' + error);
+        return p.reject('Error parsing JSON when getting ddragon: ' + error);
       }
       var version = parsed.v;
       return p.resolve(version);
@@ -100,7 +100,7 @@ var apicalls = {
         parsed = JSON.parse(body);
       }
       catch (error) {
-        return p.reject('Error parsing JSON: ' + error);
+        return p.reject('Error parsing JSON getting image: ' + error);
       }
       var image = parsed.image.full;
       return p.resolve(image);
