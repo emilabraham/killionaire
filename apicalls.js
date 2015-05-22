@@ -9,7 +9,7 @@ function reject (message, error) {
 }
 
 var apicalls = {
-  // Get the summonerId from the summonerName
+  // Get the summonerId from the given summonerName
   getSummonerId: function getSummonerId (summonerName, region) {
     console.log("Fetching Summoner Id...");
     function fulfill (response, body) {
@@ -110,10 +110,11 @@ var apicalls = {
     .spread(fulfill, reject.bind(null, 'Got an error getting the image name'));
   },
 
-  // Print all of the champ names and pentakills from given stats
+  // Constructs a JSON object using the the stats JSON object and region
   constructJSON: function constructJSON (stats, region) {
     console.log("Constructing JSON...");
 
+    //Builds the ddragon url for the image
     function buildURL(name, version, image) {
       console.log('Building champion object...');
       object = {
@@ -122,9 +123,12 @@ var apicalls = {
       }
       return p.resolve(object);
     }
+
     return p.filter(stats.champions, function(champion) {
       return (champion.id !== 0);
     }).map(function(champion) {
+      //Chains a bunch of promises and inputs the results as arguments to the
+      //given callback function
       return p.join(apicalls.getChampName(champion.id, region),
                     apicalls.getDragonVersion(region),
                     apicalls.getImageName(champion.id, region),
@@ -139,6 +143,8 @@ var apicalls = {
                      }
                    });
     }).then(function(champions){
+
+      //Gather totals for each type of kill
       var totals = {
         name: 'totals',
         numPenta: 0,

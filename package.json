@@ -33,6 +33,6 @@
     "jade": "^1.9.2",
     "jquery": "1.11.3",
     "request": "^2.55.0",
-    "tablesorter": "^2.21.5"
+    "tablesorter": "^2.22.1"
   }
 }
