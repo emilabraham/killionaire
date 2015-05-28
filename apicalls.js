@@ -134,8 +134,10 @@ var apicalls = {
                     apicalls.getImageName(champion.id, region),
                     buildURL
                    ).then(function(object){
+                     //Finally, it creates an object that contains the name, image url, and
+                     //kills for each champion
                      return {
-                       object: object,
+                       object: object,//Contains champ name and image url
                        numPenta: champion.stats.totalPentaKills,
                        numQuadra: champion.stats.totalQuadraKills,
                        numTriple: champion.stats.totalTripleKills,
