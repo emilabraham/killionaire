@@ -63,7 +63,7 @@ Test out these custom less files live
    or just replace (!".@{theme}") with the contents of @theme
  */
 .tablesorter-custom {
-  font: 11px 'Roboto', verdana, arial;
+  font: 20px 'Roboto', verdana, arial;
   background-color: #cdcdcd;
   margin: 10px 0 15px;
   width: 100%;
@@ -145,7 +145,7 @@ Test out these custom less files live
   background-color: #ffffff;
   color: #000000;
   padding: 4px;
-  vertical-align: top;
+  vertical-align: middle;
 }
 .tablesorter-custom tbody tr.odd > td {
   background-color: #60c374;

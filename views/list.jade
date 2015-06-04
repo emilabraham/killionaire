@@ -31,7 +31,7 @@ table(id='killTable', class='tablesorter')
   tbody
     for champ in blob
       tr
-        td 
+        td(id='champImage') 
           img(src=champ.object.url)
           br
           =champ.object.name
