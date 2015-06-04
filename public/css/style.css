@@ -167,7 +167,8 @@ img {
   height: auto;
 }
 
-.tablesorter-green {
+/* Tablesorter css */
+/*.tablesorter-green {
     width: 100%;
     text-align: left;
     border-spacing: 0;
@@ -278,7 +279,7 @@ caption {
     background-color: #fff
 }
 .tablesorter-green .tablesorter-filter-row {
-    background-color: #eee
+    background-color: #FF0000
 }
 .tablesorter-green .tablesorter-filter-row td {
     background-color: #eee;
@@ -333,4 +334,4 @@ caption {
     text-align: center;
     cursor: pointer;
     background-color: #e6bf99
-}
+}*/
