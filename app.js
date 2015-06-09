@@ -6,6 +6,8 @@ app.set('views', './views');
 app.set('view engine', 'jade');
 app.use(express.static('public'));
 
+app.enable('trust proxy');
+
 //Routes
 app.use('/', require('./routes/index'));
 
