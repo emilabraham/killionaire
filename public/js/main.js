@@ -54,6 +54,7 @@ $(document).ready(function() {
       hash = '#' + region + ':' + summoner;
       $link = $('<a>').attr('href', hash).text('Permalink');
       $('#summoner h1').after($link);
+      $('#killTable').tablesorter();
     }).fail(function(xhr, status, error) {
       $('#result').html(xhr.responseText).show();
     }).always(function() {
