@@ -1,5 +1,5 @@
 {
-  "name": "killionaire",
+  "name": "pentascore",
   "version": "1.0.0",
   "description": "An application that tracks multikills per champion per summoner",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/emilabraham/killionaire.git"
+    "url": "https://github.com/emilabraham/pentascore.git"
   },
   "keywords": [
     "riot",
@@ -18,9 +18,9 @@
   "author": "Emil Abraham",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/emilabraham/killionaire/issues"
+    "url": "https://github.com/emilabraham/pentascore/issues"
   },
-  "homepage": "https://github.com/emilabraham/killionaire",
+  "homepage": "https://github.com/emilabraham/pentascore",
   "devDependencies": {
     "bluebird": "^2.9.24",
     "less": "^2.5.0",
