@@ -4,34 +4,38 @@ div(id='summoner')
     h2 Totals
     ul
       li
-        span(class='header')
+        span(class='headerSum')
           | Pentas
         = blob.totals.numPenta
       li
-        span(class='header')
+        span(class='headerSum')
           | Quadras
         = blob.totals.numQuadra
       li
-        span(class='header')
+        span(class='headerSum')
           | Triples
         = blob.totals.numTriple
       li
-        span(class='header')
+        span(class='headerSum')
           | Doubles
         = blob.totals.numDouble
 
-table
-  // Titles
-  tr
-    th Champion
-    th Pentakills
-    th Quadrakills
-    th TripleKills
-    th DoubleKills
-  for champ in blob
+table(id='killTable', class='tablesorter')
+  thead
     tr
-      td= champ.name
-      td= champ.numPenta
-      td= champ.numQuadra
-      td= champ.numTriple
-      td= champ.numDouble
+      th Champion
+      th Pentakills
+      th Quadrakills
+      th Triplekills
+      th Doublekills
+  tbody
+    for champ in blob
+      tr
+        td(id='champImage') 
+          img(src=champ.object.url)
+          br
+          =champ.object.name
+        td= champ.numPenta
+        td= champ.numQuadra
+        td= champ.numTriple
+        td= champ.numDouble

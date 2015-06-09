@@ -9,7 +9,7 @@ function reject (message, error) {
 }
 
 var apicalls = {
-  // Get the summonerId from the summonerName
+  // Get the summonerId from the given summonerName
   getSummonerId: function getSummonerId (summonerName, region) {
     console.log("Fetching Summoner Id...");
     function fulfill (response, body) {
@@ -58,7 +58,6 @@ var apicalls = {
 
   // return the champName as a promise based on champId
   getChampName: function getChampName(champId, region) {
-    console.log("Fetching name of Champion...");
     function fulfill (response, body) {
       var parsed;
       try {
@@ -75,24 +74,79 @@ var apicalls = {
     .spread(fulfill, reject.bind(null, 'Uh oh. Got an error retrieving your stats'));
   },
 
-  // Print all of the champ names and pentakills from given stats
+  // return ddragon version
+  getDragonVersion: function getDragonVersion (region) {
+    function fulfill (response, body) {
+      var parsed;
+      try {
+        parsed = JSON.parse(body);
+      }
+      catch (error) {
+        return p.reject('Error parsing JSON when getting ddragon: ' + error);
+      }
+      var version = parsed.v;
+      return p.resolve(version);
+    }
+
+    return request(options.getDragonVersion(region))
+    .spread(fulfill, reject.bind(null, 'Got an error getting the DDragon version'));
+  },
+
+  // return the name of the champ image
+  getImageName: function getImageName (champId, region) {
+    function fulfill (response, body) {
+      var parsed;
+      try {
+        parsed = JSON.parse(body);
+      }
+      catch (error) {
+        return p.reject('Error parsing JSON getting image: ' + error);
+      }
+      var image = parsed.image.full;
+      return p.resolve(image);
+    }
+
+    return request(options.getImageName(champId, region))
+    .spread(fulfill, reject.bind(null, 'Got an error getting the image name'));
+  },
+
+  // Constructs a JSON object using the the stats JSON object and region
   constructJSON: function constructJSON (stats, region) {
     console.log("Constructing JSON...");
+
+    //Builds the ddragon url for the image
+    function buildURL(name, version, image) {
+      console.log('Building champion object...');
+      object = {
+        name: name,
+        url: 'http://ddragon.leagueoflegends.com/cdn/' + version + '/img/champion/' + image
+      }
+      return p.resolve(object);
+    }
+
     return p.filter(stats.champions, function(champion) {
       return (champion.id !== 0);
     }).map(function(champion) {
-      return p.try(function(){
-        return apicalls.getChampName(champion.id, region)
-      }).then(function(name){
-        return {
-          name: name,
-          numPenta: champion.stats.totalPentaKills,
-          numQuadra: champion.stats.totalQuadraKills,
-          numTriple: champion.stats.totalTripleKills,
-          numDouble: champion.stats.totalDoubleKills
-        }
-      });
+      //Chains a bunch of promises and inputs the results as arguments to the
+      //given callback function
+      return p.join(apicalls.getChampName(champion.id, region),
+                    apicalls.getDragonVersion(region),
+                    apicalls.getImageName(champion.id, region),
+                    buildURL
+                   ).then(function(object){
+                     //Finally, it creates an object that contains the name, image url, and
+                     //kills for each champion
+                     return {
+                       object: object,//Contains champ name and image url
+                       numPenta: champion.stats.totalPentaKills,
+                       numQuadra: champion.stats.totalQuadraKills,
+                       numTriple: champion.stats.totalTripleKills,
+                       numDouble: champion.stats.totalDoubleKills
+                     }
+                   });
     }).then(function(champions){
+
+      //Gather totals for each type of kill
       var totals = {
         name: 'totals',
         numPenta: 0,
