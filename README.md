@@ -13,3 +13,6 @@ Clone this repository and run:
 ##Run
 In order to start the server, run:
 `node app.js`
+
+##Live
+[pentascore.com](pentascore.com)
