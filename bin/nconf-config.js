@@ -5,7 +5,7 @@ module.exports = function() {
   nconf.file({ file: './config.json' });
 
   nconf.defaults({
-    API_KEY: 'fce87c83-d6f4-4e5f-98ab-da74bb6448ba'
+    API_KEY: 'RGAPI-539a258f-8922-41b2-8aad-d4786a252381'
   });
   return nconf;
 };
