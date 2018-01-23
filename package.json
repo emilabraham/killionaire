@@ -31,7 +31,6 @@
     "express": "^4.12.3",
     "express-promise-router": "0.0.9",
     "jade": "^1.9.2",
-    "jquery": "1.11.3",
     "request": "^2.55.0",
     "tablesorter": "^2.22.1"
   }
