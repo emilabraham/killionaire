@@ -16,6 +16,6 @@ In order to start the server, run:
 
 ## Live
 ~~pentascore.com~~ I have decided to stop hosting this for a few reasons.
-Riot made breaking changes to their API. In order to provide this same functionality, I would need to start aggregating data. Also,
+Riot made breaking changes to their API. In order to provide this same functionality, I would need to start aggregating data. Which I am too lazy to do. Also,
 I had planned to add the feature of seeing which champions you had chests with. Riot added that feature to their client. So I don't need
-to do that anymore.
+to do that anymore. Plus, I stopped playing the game so I lost interest. But I'm keeping this repository up for record keeping.
